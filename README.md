@@ -145,6 +145,4 @@ InventoryManagementSystem/
 - Advanced sorting
 - Dark mode
 
-## 📄 License
 
-MIT License - see [LICENSE](LICENSE) file for details.
