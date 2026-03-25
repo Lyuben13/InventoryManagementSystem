@@ -143,6 +143,3 @@ InventoryManagementSystem/
 - Docker support
 - Real-time updates
 - Advanced sorting
-
-
-
