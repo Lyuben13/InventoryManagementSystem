@@ -56,7 +56,21 @@ dotnet ef database update
 dotnet run
 ```
 
-## 📚 API Endpoints
+## � Screenshots
+
+### 📊 Dashboard
+![Dashboard](https://github.com/Lyuben13/InventoryManagementSystem/blob/main/screenshots/products-HomePage.png)
+
+### 📦 Products Management
+![Products](https://github.com/Lyuben13/InventoryManagementSystem/blob/main/screenshots/products-HomePage.png)
+
+### 🏥 System Status
+![Status](https://github.com/Lyuben13/InventoryManagementSystem/blob/main/screenshots/health-statusPage.png)
+
+### 📚 API Documentation
+![Swagger](https://github.com/Lyuben13/InventoryManagementSystem/blob/main/screenshots/SwaggerUIProducts10.png)
+
+## �📚 API Endpoints
 
 - `GET /api/products` - List with pagination and filtering
 - `GET /api/products/{id}` - Get single product
