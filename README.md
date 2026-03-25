@@ -34,15 +34,15 @@ Provides a simple inventory workflow for product tracking, stock monitoring, fil
 
 ```
 ┌─────────────────┐
-│   Web UI      │
+│ Web UI          │
 ├─────────────────┤
-│   Controllers   │
+│ Controllers     │
 ├─────────────────┤
-│   Services      │
+│ Services        │
 ├─────────────────┤
-│   Repositories  │
+│ Repositories    │
 ├─────────────────┤
-│   Database     │
+│ Database        │
 └─────────────────┘
 ```
 
@@ -56,13 +56,10 @@ dotnet ef database update
 dotnet run
 ```
 
-## � Screenshots
+## 📸 Screenshots
 
 ### 📊 Dashboard
 ![Dashboard](https://github.com/Lyuben13/InventoryManagementSystem/blob/main/screenshots/products-HomePage.png)
-
-### 📦 Products Management
-![Products](https://github.com/Lyuben13/InventoryManagementSystem/blob/main/screenshots/products-HomePage.png)
 
 ### 🏥 System Status
 ![Status](https://github.com/Lyuben13/InventoryManagementSystem/blob/main/screenshots/health-statusPage.png)
@@ -70,7 +67,7 @@ dotnet run
 ### 📚 API Documentation
 ![Swagger](https://github.com/Lyuben13/InventoryManagementSystem/blob/main/screenshots/SwaggerUIProducts10.png)
 
-## �📚 API Endpoints
+## 📚 API Endpoints
 
 - `GET /api/products` - List with pagination and filtering
 - `GET /api/products/{id}` - Get single product
@@ -135,7 +132,7 @@ InventoryManagementSystem/
 - No user authentication
 - No data export functionality
 - Limited sorting options
-- Responsive but not mobile-optimized
+- Responsive layout with limited mobile-specific optimization
 
 ## 📈 Future Improvements
 
@@ -146,12 +143,8 @@ InventoryManagementSystem/
 - Docker support
 - Real-time updates
 - Advanced sorting
-- Dark Mode
+- Dark mode
 
 ## 📄 License
 
 MIT License - see [LICENSE](LICENSE) file for details.
-
----
-
-Built with .NET 8 and modern web technologies
