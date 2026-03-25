@@ -1,0 +1,518 @@
+@{
+    ViewData["Title"] = "Продукти";
+}
+
+<!-- Page Header -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h2 fw-bold mb-1">Продукти</h1>
+        <p class="text-muted mb-0">Управление на складовите наличности</p>
+    </div>
+    <div>
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addProductModal">
+            <i class="bi bi-plus-lg me-1"></i> Добави продукт
+        </button>
+    </div>
+</div>
+
+<!-- KPI Cards -->
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <h6 class="card-title mb-1 text-muted">Общо продукти</h6>
+                        <div class="h3 mb-0 fw-semibold" id="totalProducts">-</div>
+                    </div>
+                    <div class="ms-3">
+                        <i class="bi bi-box fs-2 text-primary"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <h6 class="card-title mb-1 text-muted">Общо бройки</h6>
+                        <div class="h3 mb-0 fw-semibold" id="totalUnits">-</div>
+                    </div>
+                    <div class="ms-3">
+                        <i class="bi bi-stack fs-2 text-success"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <h6 class="card-title mb-1 text-muted">Обща стойност</h6>
+                        <div class="h3 mb-0 fw-semibold" id="totalValue">-</div>
+                    </div>
+                    <div class="ms-3">
+                        <i class="bi bi-currency-euro fs-2 text-warning"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <h6 class="card-title mb-1 text-muted">Ниска наличност</h6>
+                        <div class="h3 mb-0 fw-semibold" id="lowStock">-</div>
+                    </div>
+                    <div class="ms-3">
+                        <i class="bi bi-exclamation-triangle fs-2 text-danger"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Filters Card -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+        <div class="row g-3">
+            <div class="col-md-3">
+                <label class="form-label">Търсене</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                    <input type="text" id="searchInput" class="form-control" placeholder="Име или доставчик...">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Мин. количество</label>
+                <input type="number" id="filterMinQuantity" class="form-control" placeholder="0">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Макс. цена</label>
+                <input type="number" id="filterMaxPrice" class="form-control" placeholder="0" step="0.01">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Доставчик</label>
+                <select id="filterSupplier" class="form-select">
+                    <option value="">Всички</option>
+                </select>
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <button class="btn btn-primary w-100" onclick="loadProducts(1)">
+                    <i class="bi bi-funnel me-1"></i> Филтрирай
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Products Table -->
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-light">
+        <div class="d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Продукти в склада</h5>
+            <span class="badge bg-secondary" id="totalRecords">Общо: - записа</span>
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Име</th>
+                        <th class="text-end">Количество</th>
+                        <th class="text-end">Цена</th>
+                        <th class="text-end">Стойност</th>
+                        <th>Доставчик</th>
+                        <th>Дата</th>
+                        <th class="text-center">Действия</th>
+                    </tr>
+                </thead>
+                <tbody id="productsTableBody">
+                    <tr>
+                        <td colspan="8" class="text-center py-4">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Зареждане...</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer">
+        <nav>
+            <ul class="pagination pagination-sm mb-0 justify-content-center" id="pagination">
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<!-- Add Product Modal -->
+<div class="modal fade" id="addProductModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Добавяне на продукт</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addProductForm">
+                    <div class="mb-3">
+                        <label class="form-label">Име на продукта *</label>
+                        <input type="text" id="productName" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Количество *</label>
+                        <input type="number" id="productQuantity" class="form-control" required min="0">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Цена (€) *</label>
+                        <input type="number" id="productPrice" class="form-control" required min="0" step="0.01">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Доставчик *</label>
+                        <input type="text" id="productSupplier" class="form-control" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отказ</button>
+                <button type="button" class="btn btn-primary" onclick="addProduct()">Добави</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Product Modal -->
+<div class="modal fade" id="editProductModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Редактиране на продукт</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editProductForm">
+                    <input type="hidden" id="editProductId" />
+                    <div class="mb-3">
+                        <label class="form-label">Име на продукта *</label>
+                        <input type="text" id="editProductName" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Количество *</label>
+                        <input type="number" id="editProductQuantity" class="form-control" required min="0">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Цена (€) *</label>
+                        <input type="number" id="editProductPrice" class="form-control" required min="0" step="0.01">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Доставчик *</label>
+                        <input type="text" id="editProductSupplier" class="form-control" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отказ</button>
+                <button type="button" class="btn btn-primary" onclick="updateProduct()">Запази</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let currentPage = 1;
+        const pageSize = 20;
+
+        window.loadProducts = async function(page = 1) {
+            const tbody = document.getElementById('productsTableBody');
+            if (!tbody) return;
+
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="8" class="text-center py-4">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Зареждане...</span>
+                        </div>
+                    </td>
+                </tr>
+            `;
+
+            try {
+                const search = document.getElementById('searchInput')?.value?.trim() || '';
+                const minQuantity = document.getElementById('filterMinQuantity')?.value || '';
+                const maxPrice = document.getElementById('filterMaxPrice')?.value || '';
+                const supplier = document.getElementById('filterSupplier')?.value || '';
+
+                let url = `/api/products?page=${page}&pageSize=${pageSize}`;
+                if (search) url += `&search=${encodeURIComponent(search)}`;
+                if (minQuantity) url += `&minQuantity=${encodeURIComponent(minQuantity)}`;
+                if (maxPrice) url += `&maxPrice=${encodeURIComponent(maxPrice)}`;
+                if (supplier) url += `&supplier=${encodeURIComponent(supplier)}`;
+
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Неуспешно зареждане на продуктите');
+                }
+
+                const data = await response.json();
+                currentPage = page;
+
+                renderProductsTable(data.items || []);
+                updateTotalRecords(data.totalCount || 0);
+                renderPagination(data);
+            } catch (error) {
+                console.error(error);
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="text-center py-4 text-danger">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            Грешка: ${error.message}
+                        </td>
+                    </tr>
+                `;
+            }
+        };
+
+        function renderProductsTable(products) {
+            const tbody = document.getElementById('productsTableBody');
+            if (!tbody) return;
+
+            tbody.innerHTML = '';
+
+            if (!products.length) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="text-center py-4 text-muted">
+                            <i class="bi bi-inbox me-2"></i>
+                            Няма намерени продукти
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            products.forEach(product => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><span class="badge bg-secondary">${product.id}</span></td>
+                    <td><strong>${product.name}</strong></td>
+                    <td class="text-end">${product.quantity}</td>
+                    <td class="text-end">${Number(product.price).toFixed(2)} €</td>
+                    <td class="text-end"><strong>${(Number(product.quantity) * Number(product.price)).toFixed(2)} €</strong></td>
+                    <td><span class="badge bg-info">${product.supplier}</span></td>
+                    <td>${new Date(product.createdOnUtc).toLocaleDateString('bg-BG')}</td>
+                    <td class="text-center">
+                        <div class="btn-group btn-group-sm">
+                            <button class="btn btn-outline-primary" onclick="editProduct(${product.id})" title="Редактирай">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-outline-danger" onclick="deleteProduct(${product.id})" title="Изтрий">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function renderPagination(data) {
+            const pagination = document.getElementById('pagination');
+            if (!pagination) return;
+
+            pagination.innerHTML = '';
+
+            const totalPages = data.totalPages || 1;
+            const hasPreviousPage = data.hasPreviousPage;
+            const hasNextPage = data.hasNextPage;
+
+            // Previous button
+            const prevLi = document.createElement('li');
+            prevLi.className = `page-item ${hasPreviousPage ? '' : 'disabled'}`;
+            prevLi.innerHTML = `<a class="page-link" href="#" onclick="event.preventDefault(); loadProducts(${currentPage - 1})">Предишна</a>`;
+            pagination.appendChild(prevLi);
+
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                const li = document.createElement('li');
+                li.className = `page-item ${i === currentPage ? 'active' : ''}`;
+                li.innerHTML = `<a class="page-link" href="#" onclick="event.preventDefault(); loadProducts(${i})">${i}</a>`;
+                pagination.appendChild(li);
+            }
+
+            // Next button
+            const nextLi = document.createElement('li');
+            nextLi.className = `page-item ${hasNextPage ? '' : 'disabled'}`;
+            nextLi.innerHTML = `<a class="page-link" href="#" onclick="event.preventDefault(); loadProducts(${currentPage + 1})">Следваща</a>`;
+            pagination.appendChild(nextLi);
+        }
+
+        function updateTotalRecords(count) {
+            const totalRecords = document.getElementById('totalRecords');
+            if (totalRecords) {
+                totalRecords.textContent = `Общо: ${count} записа`;
+            }
+        }
+
+        window.loadDashboard = async function() {
+            try {
+                const response = await fetch('/api/products/report');
+                if (!response.ok) {
+                    throw new Error('Неуспешно зареждане на справката');
+                }
+
+                const report = await response.json();
+
+                document.getElementById('totalProducts').textContent = report.totalProducts ?? 0;
+                document.getElementById('totalUnits').textContent = report.totalUnits ?? 0;
+                document.getElementById('totalValue').textContent = `${Number(report.totalInventoryValue || 0).toFixed(2)} €`;
+                document.getElementById('lowStock').textContent = report.lowStockProductsCount ?? 0;
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        window.addProduct = async function() {
+            try {
+                const name = document.getElementById('productName').value.trim();
+                const quantity = parseInt(document.getElementById('productQuantity').value);
+                const price = parseFloat(document.getElementById('productPrice').value);
+                const supplier = document.getElementById('productSupplier').value.trim();
+
+                if (!name || !supplier || Number.isNaN(quantity) || Number.isNaN(price)) {
+                    alert('Моля, попълнете всички задължителни полета!');
+                    return;
+                }
+
+                const response = await fetch('/api/products', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, quantity, price, supplier })
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(errorText || 'Грешка при добавяне');
+                }
+
+                const modalEl = document.getElementById('addProductModal');
+                const modal = bootstrap.Modal.getInstance(modalEl);
+                if (modal) modal.hide();
+
+                document.getElementById('addProductForm').reset();
+
+                await loadProducts(currentPage);
+                await loadDashboard();
+            } catch (error) {
+                console.error(error);
+                alert(error.message);
+            }
+        };
+
+        window.editProduct = async function(id) {
+            try {
+                const response = await fetch(`/api/products/${id}`);
+                if (!response.ok) {
+                    throw new Error('Неуспешно зареждане на продукта');
+                }
+
+                const product = await response.json();
+
+                // Populate form fields
+                document.getElementById('editProductId').value = product.id;
+                document.getElementById('editProductName').value = product.name;
+                document.getElementById('editProductQuantity').value = product.quantity;
+                document.getElementById('editProductPrice').value = product.price;
+                document.getElementById('editProductSupplier').value = product.supplier;
+
+                // Show modal
+                const modal = new bootstrap.Modal(document.getElementById('editProductModal'));
+                modal.show();
+            } catch (error) {
+                console.error(error);
+                alert('Грешка при зареждане на продукта: ' + error.message);
+            }
+        };
+
+        window.updateProduct = async function() {
+            try {
+                const id = document.getElementById('editProductId').value;
+                const name = document.getElementById('editProductName').value.trim();
+                const quantity = parseInt(document.getElementById('editProductQuantity').value);
+                const price = parseFloat(document.getElementById('editProductPrice').value);
+                const supplier = document.getElementById('editProductSupplier').value.trim();
+
+                if (!name || !supplier || Number.isNaN(quantity) || Number.isNaN(price)) {
+                    alert('Моля, попълнете всички задължителни полета!');
+                    return;
+                }
+
+                const response = await fetch(`/api/products/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, quantity, price, supplier })
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(errorText || 'Грешка при обновяване');
+                }
+
+                // Close modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('editProductModal'));
+                modal.hide();
+
+                // Refresh data
+                await loadProducts(currentPage);
+                await loadDashboard();
+            } catch (error) {
+                console.error(error);
+                alert(error.message);
+            }
+        };
+
+        window.deleteProduct = async function(id) {
+            if (!confirm('Сигурни ли сте, че искате да изтриете този продукт?')) return;
+
+            try {
+                const response = await fetch(`/api/products/${id}`, { method: 'DELETE' });
+
+                if (!response.ok) {
+                    throw new Error('Грешка при изтриване');
+                }
+
+                await loadProducts(currentPage);
+                await loadDashboard();
+            } catch (error) {
+                console.error(error);
+                alert(error.message);
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProducts();
+            loadDashboard();
+
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        loadProducts(1);
+                    }
+                });
+            }
+        });
+    </script>
+}

@@ -1,0 +1,193 @@
+:root {
+    --app-bg-light: #f4f7fb;
+    --app-surface-light: rgba(255, 255, 255, 0.88);
+    --app-navbar-light: rgba(255, 255, 255, 0.88);
+
+    --app-bg-dark: #111827;
+    --app-surface-dark: #1f2937;
+    --app-border-dark: #374151;
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--app-bg-light);
+    background-image: url('/images/account-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(244, 247, 251, 0.86);
+    z-index: -1;
+}
+
+[data-bs-theme="dark"] body::before {
+    background: rgba(17, 24, 39, 0.90);
+}
+
+/* Brand Logo */
+.brand-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    display: block;
+    border-radius: 6px;
+    background: transparent;
+}
+
+/* Legacy Logo Icon - keeping for compatibility */
+.logo-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bs-primary);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+/* Navbar & Footer */
+.app-navbar {
+    backdrop-filter: blur(10px);
+    background-color: var(--app-navbar-light);
+}
+
+.app-footer {
+    background-color: var(--app-navbar-light);
+}
+
+/* Theme Toggle */
+.theme-toggle {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Cards */
+.card {
+    border: 0;
+    border-radius: 16px;
+    box-shadow: 0 .25rem 1rem rgba(15, 23, 42, 0.08);
+}
+
+.form-control,
+.form-select,
+.btn {
+    border-radius: 10px;
+}
+
+/* Table Actions */
+.table-actions .btn {
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+/* KPI Cards */
+.kpi-card.warning {
+    border: 1px solid rgba(245, 158, 11, 0.35) !important;
+}
+
+.kpi-card.warning .display-6,
+.kpi-card.warning .text-warning-emphasis {
+    color: #d97706;
+}
+
+/* Dark Theme - Bootstrap 5.3 Color Mode + Fallback */
+[data-bs-theme="dark"] .app-navbar,
+[data-bs-theme="dark"] .app-footer,
+body.dark-theme .app-navbar,
+body.dark-theme .app-footer {
+    background-color: rgba(31, 41, 55, 0.88);
+    border-color: var(--app-border-dark) !important;
+}
+
+[data-bs-theme="dark"] .card,
+body.dark-theme .card {
+    background-color: var(--app-surface-dark);
+    color: #e5e7eb;
+    box-shadow: none;
+    border: 1px solid var(--app-border-dark);
+}
+
+[data-bs-theme="dark"] .text-muted,
+[data-bs-theme="dark"] .text-secondary,
+body.dark-theme .text-muted,
+body.dark-theme .text-secondary {
+    color: #9ca3af !important;
+}
+
+[data-bs-theme="dark"] .form-control,
+[data-bs-theme="dark"] .form-select,
+body.dark-theme .form-control,
+body.dark-theme .form-select {
+    background-color: #374151;
+    border-color: #4b5563;
+    color: #f3f4f6;
+}
+
+[data-bs-theme="dark"] .form-control::placeholder,
+body.dark-theme .form-control::placeholder {
+    color: #9ca3af;
+}
+
+[data-bs-theme="dark"] .form-control:focus,
+[data-bs-theme="dark"] .form-select:focus,
+body.dark-theme .form-control:focus,
+body.dark-theme .form-select:focus {
+    background-color: #374151;
+    border-color: #3b82f6;
+    color: #f3f4f6;
+    box-shadow: 0 0 0 .2rem rgba(59, 130, 246, .15);
+}
+
+[data-bs-theme="dark"] .table,
+body.dark-theme .table {
+    --bs-table-bg: transparent;
+    --bs-table-color: #e5e7eb;
+    --bs-table-hover-bg: rgba(255,255,255,0.04);
+    --bs-table-border-color: #374151;
+}
+
+[data-bs-theme="dark"] .table-light,
+body.dark-theme .table-light {
+    --bs-table-bg: #374151;
+    --bs-table-color: #f9fafb;
+}
+
+[data-bs-theme="dark"] .kpi-card.warning,
+body.dark-theme .kpi-card.warning {
+    background: linear-gradient(180deg, #1f2937 0%, #243041 100%);
+    border-color: rgba(245, 158, 11, 0.45) !important;
+}
+
+[data-bs-theme="dark"] .kpi-card.warning .display-6,
+[data-bs-theme="dark"] .kpi-card.warning .text-warning-emphasis,
+body.dark-theme .kpi-card.warning .display-6,
+body.dark-theme .kpi-card.warning .text-warning-emphasis {
+    color: #fbbf24;
+}
+
+/* Fallback dark theme */
+body.dark-theme {
+    background-color: #111827 !important;
+    color: #e5e7eb !important;
+}
+
+body.dark-theme::before {
+    background: rgba(17, 24, 39, 0.90);
+}

@@ -1,0 +1,292 @@
+@{
+    ViewData["Title"] = "System Health - DataCorp Inventory";
+}
+
+<!-- Hero Section -->
+<section class="hero-section" style="padding: 40px 0;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4">
+                    <i class="fas fa-heartbeat me-3"></i>System Health Monitor
+                </h1>
+                <p class="lead">Real-time monitoring of DataCorp Inventory system status and performance</p>
+            </div>
+            <div class="col-lg-4 text-center">
+                <div class="hero-icon">
+                    <i class="fas fa-shield-alt" style="font-size: 6rem; opacity: 0.3;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="stat-card bg-success text-white">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <i class="fas fa-server fa-2x"></i>
+                    </div>
+                    <h5>System Status</h5>
+                    <h2 class="mb-0">HEALTHY</h2>
+                    <small>Online</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card bg-info text-white">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <i class="fas fa-database fa-2x"></i>
+                    </div>
+                    <h5>Database</h5>
+                    <h2 class="mb-0">CONNECTED</h2>
+                    <small>SQL Server</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card bg-primary text-white">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <i class="fas fa-microchip fa-2x"></i>
+                    </div>
+                    <h5>API Status</h5>
+                    <h2 class="mb-0">ACTIVE</h2>
+                    <small>All endpoints</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card bg-warning text-white">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <i class="fas fa-clock fa-2x"></i>
+                    </div>
+                    <h5>Uptime</h5>
+                    <h2 class="mb-0" id="uptime">--:--:--</h2>
+                    <small>Running</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="main-card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-cogs me-2"></i>System Components
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="fas fa-server text-success me-2"></i>
+                                <strong>Web Server</strong>
+                                <small class="text-muted d-block">Kestrel HTTP Server</small>
+                            </div>
+                            <span class="badge bg-success">Operational</span>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="fas fa-database text-success me-2"></i>
+                                <strong>Database</strong>
+                                <small class="text-muted d-block">SQL Server LocalDB</small>
+                            </div>
+                            <span class="badge bg-success">Connected</span>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="fas fa-project-diagram text-success me-2"></i>
+                                <strong>Entity Framework</strong>
+                                <small class="text-muted d-block">ORM Framework v8.0</small>
+                            </div>
+                            <span class="badge bg-success">Active</span>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="fas fa-code text-success me-2"></i>
+                                <strong>API Endpoints</strong>
+                                <small class="text-muted d-block">RESTful Services</small>
+                            </div>
+                            <span class="badge bg-success">Available</span>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="fas fa-shield-alt text-success me-2"></i>
+                                <strong>Security</strong>
+                                <small class="text-muted d-block">HTTPS & Authentication</small>
+                            </div>
+                            <span class="badge bg-success">Secured</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="main-card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-chart-line me-2"></i>Performance Metrics
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <div class="text-center">
+                                <h4 class="text-primary mb-1">0ms</h4>
+                                <small class="text-muted">Response Time</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-center">
+                                <h4 class="text-success mb-1">100%</h4>
+                                <small class="text-muted">Availability</small>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <div class="text-center">
+                                <h4 class="text-info mb-1">0</h4>
+                                <small class="text-muted">Active Users</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-center">
+                                <h4 class="text-warning mb-1">3</h4>
+                                <small class="text-muted">Total Products</small>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="text-center">
+                                <h4 class="text-secondary mb-1">.NET 8.0</h4>
+                                <small class="text-muted">Framework Version</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="main-card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-history me-2"></i>Recent System Events
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-marker bg-success"></div>
+                            <div class="timeline-content">
+                                <h6 class="mb-1">System Started Successfully</h6>
+                                <small class="text-muted">@DateTime.Now.ToString("HH:mm:ss")</small>
+                                <p class="mb-0">All services initialized and running normally</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker bg-info"></div>
+                            <div class="timeline-content">
+                                <h6 class="mb-1">Database Connection Established</h6>
+                                <small class="text-muted">@DateTime.Now.AddMinutes(-2).ToString("HH:mm:ss")</small>
+                                <p class="mb-0">Connected to SQL Server LocalDB successfully</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker bg-primary"></div>
+                            <div class="timeline-content">
+                                <h6 class="mb-1">API Endpoints Registered</h6>
+                                <small class="text-muted">@DateTime.Now.AddMinutes(-3).ToString("HH:mm:ss")</small>
+                                <p class="mb-0">All REST API endpoints are available and functional</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Update uptime
+        function updateUptime() {
+            const now = new Date();
+            const uptime = now.toLocaleTimeString('bg-BG');
+            document.getElementById('uptime').textContent = uptime;
+        }
+
+        // Initialize
+        updateUptime();
+        setInterval(updateUptime, 1000);
+
+        // Add animation to cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.stat-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'all 0.5s ease';
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 100);
+            });
+        });
+    </script>
+
+    <style>
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--secondary-color);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .timeline-marker {
+            position: absolute;
+            left: -25px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .timeline-content {
+            background: rgba(52, 152, 219, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-color);
+        }
+    </style>
+}

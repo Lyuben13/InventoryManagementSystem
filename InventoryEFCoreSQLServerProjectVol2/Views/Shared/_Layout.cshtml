@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="bg" data-bs-theme="light">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Складова система</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="~/images/la.png" />
+    <link rel="apple-touch-icon" href="~/images/la.png" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg border-bottom shadow-sm app-navbar">
+            <div class="container-xl">
+                <a class="navbar-brand d-flex align-items-center gap-2" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/la.png" alt="LA" class="brand-logo" />
+                    <span class="fw-semibold">Складова система</span>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                        aria-controls="mainNav" aria-expanded="false" aria-label="Превключи навигацията">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/swagger" target="_blank" rel="noopener noreferrer">API</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Status" asp-action="Index">Статус</a>
+                        </li>
+                    </ul>
+
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="themeToggle" onchange="toggleTheme()">
+                            <label class="form-check-label" for="themeToggle">
+                                <i class="bi bi-moon-stars" id="themeIcon"></i>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="py-4">
+        <div class="container-xl">
+            @RenderBody()
+        </div>
+    </main>
+
+    <footer class="border-top py-3 app-footer">
+        <div class="container-xl d-flex justify-content-between align-items-center small text-secondary">
+            <span>&copy; @DateTime.Now.Year - Складова система</span>
+            <span>Inventory API / MVC Demo</span>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/simple.js" asp-append-version="true"></script>
+    
+    <script>
+        (() => {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            
+            document.documentElement.setAttribute('data-bs-theme', savedTheme);
+            
+            // Fallback for compatibility
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+                themeToggle.checked = true;
+                themeIcon.className = 'bi bi-sun-fill';
+            } else {
+                themeIcon.className = 'bi bi-moon-stars';
+            }
+        })();
+        
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (themeToggle.checked) {
+                body.classList.add('dark-theme');
+                document.documentElement.setAttribute('data-bs-theme', 'dark');
+                themeIcon.className = 'bi bi-sun-fill';
+                localStorage.setItem('theme', 'dark');
+                console.log('Dark theme enabled (fallback)');
+            } else {
+                body.classList.remove('dark-theme');
+                document.documentElement.setAttribute('data-bs-theme', 'light');
+                themeIcon.className = 'bi bi-moon-stars';
+                localStorage.setItem('theme', 'light');
+                console.log('Light theme enabled (fallback)');
+            }
+        }
+    </script>
+    
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

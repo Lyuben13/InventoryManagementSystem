@@ -1,0 +1,119 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build folders
+bin/
+obj/
+Debug/
+Release/
+x64/
+x86/
+
+# Rider / VS Code
+.idea/
+.vscode/
+
+# Logs
+*.log
+logs/
+
+# Test results
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+
+# Publish output
+publish/
+
+# Runtime / temp
+*.tmp
+*.temp
+*.bak
+*.old
+*.orig
+
+# Database / local files
+*.mdf
+*.ldf
+*.sqlite
+*.sqlite3
+*.db
+
+# OS files
+Thumbs.db
+Desktop.ini
+
+# Node
+node_modules/
+
+# Keep static assets
+!**/wwwroot/images/
+!**/wwwroot/images/**
+!**/wwwroot/fonts/
+!**/wwwroot/fonts/**
+
+# Keep important project files
+!*.cs
+!*.cshtml
+!*.css
+!*.js
+!*.json
+!*.md
+!*.txt
+!*.xml
+!*.config
+!*.sln
+!*.csproj
+
+# Keep source folders
+!Controllers/
+!Controllers/**
+!Models/
+!Models/**
+!Services/
+!Services/**
+!Repositories/
+!Repositories/**
+!DTOs/
+!DTOs/**
+!Validators/
+!Validators/**
+!Views/
+!Views/**
+!Areas/
+!Areas/**
+!Data/
+!Data/**
+!Migrations/
+!Migrations/**
+
+# Keep wwwroot (except build outputs)
+!wwwroot/
+!wwwroot/css/
+!wwwroot/css/**
+!wwwroot/js/
+!wwwroot/js/**
+!wwwroot/lib/
+!wwwroot/lib/**
+
+# Keep configuration
+!appsettings.json
+!appsettings.*.json
+!Properties/
+!Properties/**
+
+# Keep test files
+!Tests/
+!Tests/**
+!*.Tests/
+!*.Tests/**
